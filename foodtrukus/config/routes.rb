@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resource :sessions, only: :create
   resources :food_trucks
   get 'splash' => 'pages#splash'
-  root 'pages#home'
+  root 'pages#splash'
+  get 'map' => 'pages#map'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

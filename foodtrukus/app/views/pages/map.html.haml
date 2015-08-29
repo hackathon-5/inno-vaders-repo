@@ -1,6 +1,7 @@
 %script{:src => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"}
 %link{:href => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css", :rel => "stylesheet"}/
 %div
+  = render partial: "food_trucks/food_truck_menu"
   #map
   :javascript
       L.mapbox.accessToken = 'pk.eyJ1IjoianliMTMzNyIsImEiOiI4NjM2MzVmZGYwYTIzN2Q0YjI0OTI2OGNlNGViZjIxNSJ9.VL6UzFez-eOD10zx3eIYWA';
