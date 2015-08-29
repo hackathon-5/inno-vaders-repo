@@ -1,0 +1,14 @@
+!!!
+%html(lang="en-US")
+  %head
+    %title FoodTrukus
+    %meta(charset="UTF-8")
+    %meta(content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" name="viewport")
+    = stylesheet_link_tag "application"
+    /[if IE]
+      = javascript_include_tag "html5"
+    = yield :head
+    = csrf_meta_tags
+  %body
+    %h1 FoodTruck.us
+    = yield

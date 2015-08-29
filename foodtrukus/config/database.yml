@@ -1,0 +1,16 @@
+global: &global
+  adapter: postgresql
+  min_messages: warning
+  encoding: unicode
+  host: localhost
+
+development:
+  database: foodtrukus_dev
+  <<: *global
+
+test: &test
+  database: foodtrukus_test
+  <<: *global
+
+cucumber:
+  <<: *test
