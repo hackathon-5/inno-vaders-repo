@@ -14,7 +14,7 @@ class FoodTrucksController < ApplicationController
   def show
   end
   
-  @food_trucks = HappyHour.all
+  @food_trucks = FoodTruck.all
   @geojson = Array.new
 
   @food_trucks.each do |food_truck|

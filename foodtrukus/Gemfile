@@ -20,6 +20,7 @@ gem 'fog'
 gem 'puma'
 gem 'geocoder'
 gem 'mapbox-rails'
+gem 'responders', '~>2.0'
 
 group :development, :test do
   gem 'pry-rails'
