@@ -1,4 +1,4 @@
-
+%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
 %script{:src => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"}
 %link{:href => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css", :rel => "stylesheet"}/
 %div
@@ -20,24 +20,19 @@
    
     var myLayer = L.mapbox.featureLayer().addTo(map);
    
-    $.ajax({
-      dataType: 'text',
-      url: 'food_trucks.json',
-      success: function(data) {
-        var geojson;
-        geojson = $.parseJSON(data);
-        return myLayer.setGeoJSON(geojson);
+    var geojson = 
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -79.932358, 32.874103]
+      },
+      "properties": {
+        
+        "name": "John\'s Waffles",
+        "marker-color": "#00607d",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
       }
-    });
-          
-    myLayer.on('layeradd', function(e) {
-      var marker, popupContent, properties;
-      marker = e.layer;
-      properties = marker.feature.properties;
-      popupContent = '<div class="popup">' + '<h3>' + properties.name + '</h3>' + '<p>' + properties.description + '</p>' + '</div>';
-      return marker.bindPopup(popupContent, {
-        closeButton: false,
-        minWidth: 320
-      });
-    });
-          
+    };
+    myLayer.setGeoJSON(geojson) ;
