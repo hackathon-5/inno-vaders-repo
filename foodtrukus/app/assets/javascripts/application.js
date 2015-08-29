@@ -16,5 +16,8 @@
 //= require turbolinks
 //= require_tree .
 //= require mapbox.js
+//= require L.Control.Locate.min.js
 
-$(function(){ $(document).foundation(); });
+$(function(){ //$(document).foundation();
+    alert( "ready!" );
+});
