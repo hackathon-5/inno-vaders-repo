@@ -18,23 +18,25 @@ class FoodTrucksController < ApplicationController
   def show
   end
   
-  @geojson = Array.new
+  def mapTrucks
+    @geojson = Array.new
 
-  FoodTruck.all.each do |food_truck|
-    @geojson << {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [food_truck.longitude, food_truck.latitude]
-      },
-      properties: {
-        name: food_truck.name,
-        description: food_truck.description,
-        :'marker-color' => '#00607d',
-        :'marker-symbol' => 'circle',
-        :'marker-size' => 'medium'
+    FoodTruck.all.each do |food_truck|
+      @geojson << {
+       type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [food_truck.longitude, food_truck.latitude]
+        },
+        properties: {
+          name: food_truck.name,
+          description: food_truck.description,
+          :'marker-color' => '#00607d',
+          :'marker-symbol' => 'circle',
+          :'marker-size' => 'medium'
+        }
       }
-    }
+    end
   end
   
   respond_to do |format|

@@ -3,4 +3,6 @@ class PagesController < ApplicationController
   end
   def splash
   end
+  def map
+  end
 end
