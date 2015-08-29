@@ -4,18 +4,30 @@
     %title FoodTrukus
     %meta(charset="UTF-8")
     %meta(content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" name="viewport")
+    %script{:src => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"}
+    %link{:href => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css", :rel => "stylesheet"}/
+
     %script{:src => "https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js"}
     %link{:href => "https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css", :rel => "stylesheet"}/
-    :css
-      body { margin:0; padding:0; }
-      #map { position:absolute; top:250px; bottom:0; width:100%; }
+    /[if lt IE 9]
+      <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.ie.css' rel='stylesheet' />
+    %link{:href => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+
     = stylesheet_link_tag "application"
+    = stylesheet_link_tag "foundation_and_overrides"
+    = javascript_include_tag "vendor/modernizr"
+    /= javascript_include_tag "application"
     /[if IE]
       = javascript_include_tag "html5"
+
     = yield :head
     = csrf_meta_tags
   %body
-    %h1 FoodTruck.us
-    =link_to :sign_in
-    =link_to :sign_out
+    %ul.button-group
+      %li
+        %a.button{:href => sign_in_path} Sign In
+      %li
+        %a.button{:href => food_trucks_path} Trucks
+      %li
+        %a.button{:href => users_path} Users
     = yield
