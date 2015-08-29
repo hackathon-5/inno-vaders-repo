@@ -16,6 +16,8 @@ gem 'active_model_serializers'
 gem 'carrierwave'
 gem 'fog'
 gem 'puma'
+gem 'geocoder'
+gem 'mapbox-rails'
 
 group :development, :test do
   gem 'pry-rails'
