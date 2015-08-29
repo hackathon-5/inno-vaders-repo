@@ -13,7 +13,32 @@ class FoodTrucksController < ApplicationController
 
   def show
   end
+  
+  @food_trucks = HappyHour.all
+  @geojson = Array.new
 
+  @food_trucks.each do |food_truck|
+    @geojson << {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [food_truck.longitude, food_truck.latitude]
+      },
+      properties: {
+        name: food_truck.name,
+        description: food_truck.description,
+        :'marker-color' => '#00607d',
+        :'marker-symbol' => 'circle',
+        :'marker-size' => 'medium'
+      }
+    }
+  end
+  
+  respond_to do |format|
+    format.html
+    format.json { render json: @geojson }  # respond with the created JSON object
+  end
+  
   private
 
   def food_truck_params
