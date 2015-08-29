@@ -17,6 +17,6 @@ class FoodTrucksController < ApplicationController
   private
 
   def food_truck_params
-    params.require(:food_truck).permit(:name, :description, :is_open, :open_until, :current_lat, :current_long, :closing_time )
+    params.require(:food_truck).permit(:name, :description, :is_open, :open_until, :lattitude, :longitude, :closing_time )
   end
 end
