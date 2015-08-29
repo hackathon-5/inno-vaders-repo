@@ -1,12 +1,16 @@
 class FoodTrucksController < ApplicationController
-  expose(:food_trucks) {FoodTruck.all}
+  expose(:food_trucks) {FoodTruck.where(user_id: current_user.id)}
   expose(:food_truck, attributes: :food_truck_params)
 
   def create
+    if food_truck.save
+      redirect_to food_trucks_path
+    else
+      respond_with food_truck
+    end
   end
 
-  def update
-  end
+  alias update create
 
   def destroy
   end
@@ -14,10 +18,9 @@ class FoodTrucksController < ApplicationController
   def show
   end
   
-  @food_trucks = FoodTruck.all
   @geojson = Array.new
 
-  @food_trucks.each do |food_truck|
+  FoodTruck.all.each do |food_truck|
     @geojson << {
       type: 'Feature',
       geometry: {
