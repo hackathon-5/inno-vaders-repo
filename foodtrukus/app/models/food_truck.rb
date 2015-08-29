@@ -1,3 +1,3 @@
 class FoodTruck < ActiveRecord::Base
-  include Authem::User
+  belongs_to :user
 end

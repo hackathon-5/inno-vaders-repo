@@ -7,3 +7,4 @@
           %th= th
     %tbody
       = render partial: 'food_trucks/list', collection: food_trucks, as: "food_truck"
+  =button_to 'Add Truck', new_food_truck_path, method: :get

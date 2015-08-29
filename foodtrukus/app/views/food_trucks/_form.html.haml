@@ -1,0 +1,11 @@
+%dl
+  %dt= f.label :name
+  %dd= f.text_field :name
+%dl
+  %dt= f.label :description
+  %dd= f.text_area :description
+%dl
+  %dt= f.label :closing_time
+  %dd= f.time_field :closing_time
+= f.submit "Save Truck", onclick: "this.form.submit(); this.disabled=true; this.value='Saving...';"
+= link_to "Cancel", food_trucks_path

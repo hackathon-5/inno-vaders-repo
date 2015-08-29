@@ -1,6 +1,6 @@
 %tr(data-id="#{food_truck.id}")
-  %td= food_truck.email
+  %td= food_truck.name
   %td= food_truck.description
-  %td= food_truck.closing_time
+  %td= food_truck.closing_time.strftime("%I:%M %p") unless !food_truck.closing_time
   %td= food_truck.latitude
   %td= food_truck.longitude
