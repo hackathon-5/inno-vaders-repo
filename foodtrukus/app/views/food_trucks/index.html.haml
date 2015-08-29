@@ -1,0 +1,9 @@
+%div
+  %h1 Trucks
+  %table
+    %thead
+      %tr
+        - ["Name", "Desc", "Open Until"].each do |th|
+          %th= th
+    %tbody
+      = render partial: 'food_trucks/list', collection: food_trucks, as: "food_truck"
