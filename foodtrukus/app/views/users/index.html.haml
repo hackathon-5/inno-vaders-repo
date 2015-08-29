@@ -1,0 +1,9 @@
+%div
+  %h1 user List
+  %table
+    %thead
+      %tr
+        - ["Email", ""].each do |th|
+          %th= th
+    %tbody
+      = render partial: 'users/list', collection: users, as: "user"

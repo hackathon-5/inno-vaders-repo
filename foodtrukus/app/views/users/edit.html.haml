@@ -1,0 +1,8 @@
+%h1 My Account
+
+=form_for user, html: { id: 'edit_user' } do |f|
+  %dl
+    %dt= f.label :email, 'Email'
+    %dd= f.text_field :email
+  = f.submit "Save user"
+  = link_to "Go Back", users_path

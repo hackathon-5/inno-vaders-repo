@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'sign_in' => 'sessions#new'
+  get 'sign_out' => 'sessions#destroy'
+
+  resources :users
+  resource :sessions, only: :create
   root 'pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
