@@ -4,6 +4,7 @@
   = render partial: "food_trucks/food_truck_menu"
   #map
   :javascript
+  $(document).ready(function() {
       L.mapbox.accessToken = 'pk.eyJ1IjoianliMTMzNyIsImEiOiI4NjM2MzVmZGYwYTIzN2Q0YjI0OTI2OGNlNGViZjIxNSJ9.VL6UzFez-eOD10zx3eIYWA';
           var map = L.mapbox.map('map', 'mapbox.streets');
           var lc = L.control.locate({
@@ -12,3 +13,27 @@
           }}).addTo(map);
           lc.start();
           map.on('dragstart', lc._stopFollowing, lc);
+          
+          var myLayer = L.mapbox.featureLayer().addTo(map);
+          
+          myLayer.on('layeradd', function(e) {
+            var marker, popupContent, properties;
+            marker = e.layer;
+            properties = marker.feature.properties;
+            popupContent = '<div class="popup">' + '<h3>' + properties.name + '</h3>' + '<p>' + properties.description + '</p>' + '</div>';
+            return marker.bindPopup(popupContent, {
+              closeButton: false,
+              minWidth: 320
+            });
+          });
+          
+          $.ajax({
+            dataType: 'text',
+            url: '/out_now.json',
+            success: function(data) {
+              var geojson;
+              geojson = $.parseJSON(data);
+              return myLayer.setGeoJSON(geojson);
+            }
+          }); 
+        });
