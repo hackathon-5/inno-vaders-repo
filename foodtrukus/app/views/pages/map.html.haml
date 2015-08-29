@@ -1,3 +1,4 @@
+%script{:src => "https://code.jquery.com/jquery-migrate-1.2.1.min.js"}
 %script{:src => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"}
 %link{:href => "https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css", :rel => "stylesheet"}/
 %div
@@ -5,35 +6,38 @@
   #map
   :javascript
   $(document).ready(function() {
-      L.mapbox.accessToken = 'pk.eyJ1IjoianliMTMzNyIsImEiOiI4NjM2MzVmZGYwYTIzN2Q0YjI0OTI2OGNlNGViZjIxNSJ9.VL6UzFez-eOD10zx3eIYWA';
-          var map = L.mapbox.map('map', 'mapbox.streets');
-          var lc = L.control.locate({
-            locateOptions: {
-                maxZoom: 13
-          }}).addTo(map);
-          lc.start();
-          map.on('dragstart', lc._stopFollowing, lc);
+    L.mapbox.accessToken = 'pk.eyJ1IjoianliMTMzNyIsImEiOiI4NjM2MzVmZGYwYTIzN2Q0YjI0OTI2OGNlNGViZjIxNSJ9.VL6UzFez-eOD10zx3eIYWA';
+    var map = L.mapbox.map('map', 'mapbox.streets');
+    var lc = L.control.locate({
+      locateOptions: {
+        maxZoom: 13
+      }
+    }).addTo(map);
+    
+    lc.start();
+    
+    map.on('dragstart', lc._stopFollowing, lc);
+   
+    var myLayer = L.mapbox.featureLayer().addTo(map);
+   
+    $.ajax({
+      dataType: 'text',
+      url: 'food_trucks.json',
+      success: function(data) {
+        var geojson;
+        geojson = $.parseJSON(data);
+        return myLayer.setGeoJSON(geojson);
+      }
+    });
           
-          var myLayer = L.mapbox.featureLayer().addTo(map);
+    myLayer.on('layeradd', function(e) {
+      var marker, popupContent, properties;
+      marker = e.layer;
+      properties = marker.feature.properties;
+      popupContent = '<div class="popup">' + '<h3>' + properties.name + '</h3>' + '<p>' + properties.description + '</p>' + '</div>';
+      return marker.bindPopup(popupContent, {
+        closeButton: false,
+        minWidth: 320
+      });
+    });
           
-          myLayer.on('layeradd', function(e) {
-            var marker, popupContent, properties;
-            marker = e.layer;
-            properties = marker.feature.properties;
-            popupContent = '<div class="popup">' + '<h3>' + properties.name + '</h3>' + '<p>' + properties.description + '</p>' + '</div>';
-            return marker.bindPopup(popupContent, {
-              closeButton: false,
-              minWidth: 320
-            });
-          });
-          
-          $.ajax({
-            dataType: 'text',
-            url: '/out_now.json',
-            success: function(data) {
-              var geojson;
-              geojson = $.parseJSON(data);
-              return myLayer.setGeoJSON(geojson);
-            }
-          }); 
-        });
